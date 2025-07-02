@@ -21,6 +21,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -114,27 +115,42 @@ fun SignUp() {
 
         Button(
             onClick = { /* Handle signup logic here */
-            if (firstName.isNotEmpty() && lastName.isNotEmpty() && email.isNotEmpty() && phoneNumber.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
-                if (password == confirmPassword) {
-                    Toast.makeText(context, "Sign Up Successful", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(context, "Password not matched", Toast.LENGTH_SHORT).show()
-                }
-            }
-                else{
+                if (firstName.isNotEmpty() && lastName.isNotEmpty() && email.isNotEmpty() && phoneNumber.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+                    if (password == confirmPassword) {
+                        Toast.makeText(context, "Sign Up Successful", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "Password not matched", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
                     Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_SHORT).show()
-            }
+                }
             },
-            modifier = Modifier.padding(vertical = 16.dp),
+            modifier = Modifier.padding(vertical = 8.dp),
             shape = RoundedCornerShape(8.dp),
+
             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.purple_700))
         ) {
-            Text(text = "SignUp",color = colorResource(id = R.color.white))
+            Text(text = "SignUp", color = colorResource(id = R.color.white))
         }
 
-        Row(modifier = Modifier.padding(vertical = 4.dp),
-            verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Already have an account?")
+            TextButton(
+                onClick = { /* Handle login navigation here */ },
+                modifier = Modifier.padding(start = 8.dp)
+            ) {
+                Text(
+                    text = "Login",
+                    color = colorResource(id = R.color.purple_700), // FontWeight removed from here
+                    fontWeight = FontWeight.Bold // FontWeight added here
+                )
+            }
+            }
+
+        Row(
+            modifier = Modifier.padding(vertical = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
             HorizontalDivider(modifier = Modifier.weight(1f))
             Text(text = "Or", modifier = Modifier.padding(horizontal = 16.dp))
@@ -146,16 +162,20 @@ fun SignUp() {
             modifier = Modifier.padding(vertical = 8.dp),
             shape = RoundedCornerShape(8.dp),
             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.white))
-        ){
-            Image(painter = painterResource(id = R.drawable.ic_google_logo), contentDescription = null,
-                modifier = Modifier.size(24.dp))
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_google_logo),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.size(16.dp))
+            Text("Login with Google", color = colorResource(id = R.color.black))
         }
-        Spacer(modifier = Modifier.size(16.dp))
-        Text("Login with Google",color = colorResource(id = R.color.black))
 
     }
-
 }
+
+
 
 @Preview(showSystemUi = true)
 @Composable
