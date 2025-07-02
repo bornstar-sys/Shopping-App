@@ -1,40 +1,45 @@
 package com.example.shoppingapp.Presentation.Utils
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.OutlinedTextField // Material 2 OutlinedTextField
-import androidx.compose.material.Text             // Material 2 Text
-import androidx.compose.material.Icon            // Material 2 Icon - IMPORT ADDED
+import androidx.compose.material.Icon
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import com.example.shoppingapp.R
 
 @Composable
 fun CustomTextField(
     value: String,
     onValueChange: (String) -> Unit,
-    label: String, // Your function correctly takes a String for the label
+    label: String,
     modifier: Modifier = Modifier,
     singleLine: Boolean = true,
-    leadingIcon: ImageVector? = null, // Parameter to accept an ImageVector
+    leadingIcon: ImageVector? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
+    trailingIcon: @Composable (() -> Unit)? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     OutlinedTextField(
         value = value,
         onValueChange = onValueChange,
-        // Corrected: The 'label' parameter of OutlinedTextField expects a Composable lambda.
         label = { Text(text = label) },
         modifier = modifier,
+        shape = RoundedCornerShape(8.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            backgroundColor = colorResource(id = R.color.Fade_white)
+        ),
         singleLine = singleLine,
-        // Corrected: The 'leadingIcon' parameter of OutlinedTextField also expects a Composable lambda.
-        // We check if the passed 'leadingIcon' (ImageVector) is not null,
-        // and if so, we provide a Composable lambda that renders an Icon.
-        leadingIcon = leadingIcon?.let { // 'it' here is the non-null ImageVector
-            { // This is the @Composable () -> Unit lambda for the leadingIcon parameter
-                Icon(imageVector = it, contentDescription = null) // 'Icon' is now resolved
-            }
+        leadingIcon = leadingIcon?.let {
+            { Icon(imageVector = it, contentDescription = null) }
         },
+        trailingIcon = trailingIcon, // Add this to pass the trailingIcon to OutlinedTextField
         visualTransformation = visualTransformation,
         keyboardOptions = keyboardOptions
     )
