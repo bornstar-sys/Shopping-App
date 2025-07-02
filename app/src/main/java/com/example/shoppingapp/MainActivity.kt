@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.shoppingapp.Presentation.Login
 import com.example.shoppingapp.ui.theme.ShoppingAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,6 +43,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 @Composable
 fun GreetingPreview() {
     ShoppingAppTheme {
-        Greeting("Android")
+        Login()
     }
 }
